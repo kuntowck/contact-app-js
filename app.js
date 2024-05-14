@@ -67,7 +67,7 @@ app.get("/contact/add", (req, res) => {
   });
 });
 
-// data contact process routing
+// add data contact process routing
 app.post(
   "/contact",
   [
@@ -84,6 +84,7 @@ app.post(
   ],
   (req, res) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       res.render("add-contact", {
         title: "Add Contact Form",
@@ -97,6 +98,21 @@ app.post(
     }
   }
 );
+
+// delete data contact process
+app.get("/contact/delete/:name", async (req, res) => {
+  const contact = await Contact.findOne({ nama: req.params.name });
+
+  if (!contact) {
+    res.status(404);
+    res.send("<h1>404</h1>");
+  } else {
+    Contact.deleteOne({ _id: contact._id }).then((result) => {
+      req.flash("msg", "Data contact berhasil dihapus!");
+      res.redirect("/contact");
+    });
+  }
+});
 
 // halaman detail contact
 app.get("/contact/:name", async (req, res) => {
