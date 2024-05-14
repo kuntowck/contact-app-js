@@ -13,7 +13,7 @@ app.set("view engine", "ejs"); // setup ejs
 app.use(expressLayouts); // setup express-layouts
 
 // config flash
-app.use(cookieParser("secret")); 
+app.use(cookieParser("secret"));
 app.use(
   session({
     cookie: { maxAge: 6000 },
@@ -55,6 +55,17 @@ app.get("/contact", async (req, res) => {
     layout: "layouts/main",
     contacts,
     msg: req.flash("msg"),
+  });
+});
+
+// halaman detail contact
+app.get("/contact/:name", async (req, res) => {
+  const contact = await Contact.findOne({ nama: req.params.name });
+
+  res.render("detail", {
+    title: "Detail Contact",
+    layout: "layouts/main",
+    contact,
   });
 });
 
