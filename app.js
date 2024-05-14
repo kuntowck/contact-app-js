@@ -9,6 +9,7 @@ app.use(expressLayouts); // setup express-layouts
 app.use(express.static("public")); // allow file static
 app.use(express.urlencoded({ extended: true })); // parse data URL
 
+// halaman home
 app.get("/", (req, res) => {
   const mahasiswa = [];
   res.render("index", {
@@ -16,6 +17,14 @@ app.get("/", (req, res) => {
     nama: "Kunto",
     layout: "layouts/main",
     mahasiswa,
+  });
+});
+
+// halaman about
+app.get("/about", (req, res) => {
+  res.render("about", {
+    title: "About",
+    layout: "layouts/main",
   });
 });
 
