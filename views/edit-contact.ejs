@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row my-3">
+    <div class="col-md-6">
+      <h3>Form Ubah Data Contact</h3>
+
+      <% if (typeof errors != 'undefined') { %>
+      <div class="alert alert-danger" role="alert">
+        <ul>
+          <% errors.forEach(e => { %>
+          <li><%= e.msg %></li>
+          <% }) %>
+        </ul>
+      </div>
+
+      <% } %>
+
+      <form method="post" action="/contact?_method=PUT">
+        <!-- hidden input -->
+        <input type="hidden" name="id" value="<%= contact._id %>" />
+        <input type="hidden" name="oldnama" value="<%= contact.oldnama ? contact.oldnama : contact.nama %>" />
+
+        <div class="mb-2">
+          <label for="nama" class="form-label">Nama</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nama"
+            name="nama"
+            value="<%= contact.nama %>"
+          />
+        </div>
+        <div class="mb-2">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"                    
+            class="form-control"                   
+            id="email"                       
+            name="email"           
+            value="<%= contact.email %>"
+          />
+        </div>
+        <div class="mb-2">
+          <label for="notelp" class="form-label">No Telepon</label>
+          <input
+            type="text"
+            class="form-control"
+            id="notelp"
+            name="notelp"
+            value="<%= contact.notelp %>"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Ubah data</button>
+      </form>
+    </div>
+  </div>
+</div>
